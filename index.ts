@@ -1,8 +1,5 @@
-var signalExit = require('signal-exit')
-var spawn = require('child_process').spawn
-if (process.platform === 'win32') {
-  spawn = require('cross-spawn')
-}
+import signalExit from 'signal-exit';
+const spawn = process.platform === 'win32' ? require('cross-spawn') : require('child_process').spawn;
 
 /**
  * Normalizes the arguments passed to `foregroundChild`.
@@ -44,7 +41,7 @@ function normalizeFgArgs(fgArgs) {
  * (program: string, ...args: string[], cb?: CloseHandler);
  * ```
  */
-module.exports = function (/* program, args, cb */) {
+function foregroundChild (/* program, args, cb */) {
   var fgArgs = normalizeFgArgs([].slice.call(arguments, 0));
   var program = fgArgs.program;
   var args = fgArgs.args;
@@ -120,3 +117,13 @@ function proxySignals (child) {
     }
   }
 }
+
+// These TS exports are only there to generate the type definitions, they will be overwritten by the CJS exports below
+export {
+  foregroundChild,
+};
+
+module.exports = foregroundChild;
+Object.assign(module.exports, {
+  foregroundChild,
+});
