@@ -2,9 +2,12 @@
 
 ## Unreleased
 
-* BREAKING CHANGE: Require Node 6
-* Internal: Add Typescript support
-* Internal: Add lock file
+* Breaking change: Require Node 6.
+* Feature: Implement `proxy` function.
+* Internal: Use Tslint.
+* Internal: Add Typescript support.
+* Internal: Add lock file.
+
 
 ## v1.5.6
 
