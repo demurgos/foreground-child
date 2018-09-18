@@ -238,7 +238,7 @@ function test() {
       const out: string = Buffer.concat(chunks).toString("UTF-8");
       t.equal(code, 0);
       t.equal(signal, null);
-      t.equal(out, "Hello, World!\n");
+      t.equal(out.trim(), "Hello, World!");
     });
   });
 
@@ -254,7 +254,7 @@ function test() {
       const out: string = Buffer.concat(chunks).toString("UTF-8");
       t.equal(code, 0);
       t.equal(signal, null);
-      t.equal(out, "Hello, World!\n");
+      t.equal(out.trim(), "Hello, World!");
     });
   });
 
