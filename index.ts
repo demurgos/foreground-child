@@ -10,6 +10,8 @@ interface ReadableStreamLike {
   pipe(destination: any, options?: any): any;
 
   unpipe(destination: any): any;
+
+  pause(): any;
 }
 
 /**
@@ -273,7 +275,7 @@ function foregroundChild(program: string, arg1: string, arg2: string, arg3: stri
  *
  * @deprecated
  */
-function foregroundChild (...fgArgs: any[]): ChildProcess {
+function foregroundChild(...fgArgs: any[]): ChildProcess {
   /* istanbul ignore next */
   const simpleSpawn = process.platform === "win32" ? require("cross-spawn") : require("child_process").spawn;
   const {program, args, cb} = normalizeFgArgs(fgArgs);
@@ -411,7 +413,8 @@ function proxyStreams(parent: ProcessLike, child: cp.ChildProcess): UnproxyStrea
       child.stderr.unpipe(parent.stderr);
     }
     if (typeof child.stdin === "object" && child.stdin !== null) {
-      parent.stdin.unpipe(child.stdin);
+      // parent.stdin.unpipe(child.stdin);
+      parent.stdin.pause();
     }
   }
 }
