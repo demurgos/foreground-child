@@ -337,7 +337,8 @@ type UnproxySignals = () => void;
 function proxySignals(parent: ProcessLike, child: cp.ChildProcess): UnproxySignals {
   const listeners: Map<NodeJS.Signals, NodeJS.SignalsListener> = new Map();
 
-  for (const sig of signalExit.signals()) {
+  const signals: NodeJS.Signals[] = signalExit.signals() as any;
+  for (const sig of signals) {
     const listener: NodeJS.SignalsListener = () => child.kill(sig);
     listeners.set(sig, listener);
     parent.on(sig, listener);
